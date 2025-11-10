@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Task {
+  static int nb = 0;
   final int id;
   final String title;
   final List<String> tags;
@@ -36,9 +37,9 @@ class Task {
 
   // Méthode pour convertir un JSON en objet Task
   static Task fromJson(Map<String, dynamic> json) {
-    final tags = (json['tags'] as List<dynamic>?)
-        ?.map((e) => e.toString())
-        .toList() ?? [];
+    final tags =
+        (json['tags'] as List<dynamic>?)?.map((e) => e.toString()).toList() ??
+        [];
 
     // Gestion de la couleur encodée en hexadécimal (ex: "0xFF42A5F5")
     final colorHex = json['color'] as String?;
@@ -54,6 +55,19 @@ class Task {
       difficulty: json['difficulty'] as int,
       description: json['description'] as String,
       color: color,
+    );
+  }
+
+  factory Task.newTask() {
+    nb++; //attribut static de la classe.
+    return Task(
+      id: nb,
+      title: 'title $nb',
+      tags: ['tags $nb'],
+      nbhours: nb,
+      difficulty: nb % 5,
+      description: 'description $nb',
+      color: Colors.lightBlue,
     );
   }
 }
