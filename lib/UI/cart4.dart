@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
-import './setting_repository.dart';
+import 'setting_view_model.dart';
 import 'mytheme.dart';
 
-class EcranSettings extends StatefulWidget {
-  @override
-  State<EcranSettings> createState() => _EcranSettingsState();
-}
-
-class _EcranSettingsState extends State<EcranSettings> {
-  bool _dark = true;
+class EcranSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final settingViewModel = Provider.of<SettingViewModel>(context);
+
     return Center(
       child: SettingsList(
         darkTheme: SettingsThemeData(
@@ -25,12 +21,15 @@ class _EcranSettingsState extends State<EcranSettings> {
         ),
         sections: [
           SettingsSection(
-            title: const Text('Theme'),
+            title: const Text('Thème'),
             tiles: [
               SettingsTile.switchTile(
-                initialValue: _dark,
-                onToggle: _onToggle,
-                title: const Text('Dark mode'),
+                initialValue: settingViewModel.isDark,
+                onToggle: (value) {
+                  settingViewModel.isDark = value;
+                  debugPrint('Thème changé : $value');
+                },
+                title: const Text('Dark Model'),
                 leading: const Icon(Icons.invert_colors),
               ),
             ],
@@ -38,12 +37,5 @@ class _EcranSettingsState extends State<EcranSettings> {
         ],
       ),
     );
-  }
-
-  _onToggle(bool value) {
-    debugPrint('value $value');
-    setState(() {
-      _dark = !_dark;
-    });
   }
 }

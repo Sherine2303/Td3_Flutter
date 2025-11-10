@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:settings_ui/settings_ui.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingRepository {
   static const themeKey = "darkMode";

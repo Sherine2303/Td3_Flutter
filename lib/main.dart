@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'UI/mytheme.dart';
 import 'ViewModel/home.dart';
-import 'UI/setting_repository.dart';
+import 'UI/setting_view_model.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyTD2App());
@@ -20,7 +21,7 @@ class MyTD2App extends StatelessWidget {
       child: Consumer<SettingViewModel>(
         builder: (context, SettingViewModel notifier, child) {
           return MaterialApp(
-            title: 'TD2',
+            title: 'TD3',
             theme: MyTheme.light(),
             darkTheme: MyTheme.dark(),
             themeMode: notifier.isDark ? ThemeMode.dark : ThemeMode.light,
@@ -31,4 +32,3 @@ class MyTD2App extends StatelessWidget {
     );
   }
 }
-
