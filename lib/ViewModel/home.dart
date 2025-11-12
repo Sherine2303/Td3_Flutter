@@ -3,6 +3,7 @@ import '../UI/card1.dart';
 import '../UI/card2.dart';
 import '../UI/card3.dart';
 import '../UI/cart4.dart';
+import '../models/addtask.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,7 +13,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
-  static List<Widget> pages = <Widget>[Ecran1(), Ecran2(), Ecran3(), EcranSettings()];
+  static List<Widget> pages = <Widget>[
+    Ecran1(),
+    Ecran2(),
+    Ecran3(),
+    EcranSettings(),
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -30,6 +36,17 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: pages[_selectedIndex],
+      floatingActionButton: _selectedIndex == 0
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddTask()),
+                );
+              },
+              child: const Icon(Icons.add),
+            )
+          : const SizedBox.shrink(),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Theme.of(context).textSelectionTheme.selectionColor,
         currentIndex: _selectedIndex,
