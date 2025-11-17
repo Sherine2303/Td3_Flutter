@@ -4,16 +4,18 @@ import 'settings_repository.dart';
 class SettingViewModel extends ChangeNotifier {
   late bool _isDark;
   late SettingRepository _settingRepository;
-
   bool get isDark => _isDark;
 
   SettingViewModel() {
     _isDark = false;
     _settingRepository = SettingRepository();
-    getSettings();
+    // Attendre que le widget tree soit construit avant de charger les settings
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getSettings();
+    });
   }
 
-  // Switching the themes
+  //Switching the themes
   set isDark(bool value) {
     _isDark = value;
     _settingRepository.saveSettings(value);
